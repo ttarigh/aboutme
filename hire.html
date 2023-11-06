@@ -21,22 +21,14 @@
   <div id="typing-text"></div>
 
   <script>
-    const text = "im broken into a million pieces.";
+    const text = "hire me anyway";
     const typingTextElement = document.getElementById("typing-text");
 
     function typeText(index) {
       if (index < text.length) {
         typingTextElement.textContent += text[index];
         setTimeout(() => typeText(index + 1), 50); // Adjust the delay for typing speed
-      } else {
-        // Animation is complete, open a new popup
-        setTimeout(() => openNewPopup(), 1000); // Delay for 1 second (adjust as needed)
       }
-    }
-
-    function openNewPopup() {
-      // Open the new popup after the animation
-      const newPopup = window.open('hire.html', 'Hire Popup', 'width=500, height=100, left=750, top=600');
     }
 
     typeText(0);
