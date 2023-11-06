@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fullscreen Webcam</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform-origin: center center;
+      transform: scale(1); /* Initial scale */
+    }
+  </style>
+</head>
+<body>
+  <video autoplay></video>
+
+  <script>
+    function getQueryVariable(variable) {
+      const query = window.location.search.substring(1);
+      const vars = query.split('&');
+      for (let i = 0; i < vars.length; i++) {
+        const pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) === variable) {
+          return decodeURIComponent(pair[1]);
+        }
+      }
+      return null;
+    }
+
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const videoElement = document.querySelector('video');
+        videoElement.srcObject = stream;
+
+        // Get the zoom factor from the query parameter (default to 1 if not provided)
+        const zoomFactor = parseFloat(getQueryVariable('zoom')) || 1;
+
+        // Apply the zoom factor using CSS
+        videoElement.style.transform = `scale(${zoomFactor})`;
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+      }
+    }
+
+    startCamera();
+  </script>
+</body>
+</html>

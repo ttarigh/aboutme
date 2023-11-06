@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffffff;
+            color: #000000;
+            text-align: left;
+            padding: 20px;
+            font-size: 40px;
+        }
+        button{
+            font-size: 20px;
+        }
+        nav {
+            background-color: #ffffff;
+            text-align: left;
+            padding: 10px;
+        }
+
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            display: flex; /* Create a flex container */
+        }
+
+        .header {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .bio {
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .photo {
+            max-width: 20%;
+            border-radius: 50%;
+            margin-right: 20px; /* Add margin to create space between image and text */
+            margin-bottom: 100px;
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>About Tina:</h1>
+    </header>
+
+    <div class="container" id="bio">
+        <img class="photo" src="headshot.png" alt="Your Photo">
+        <div>
+            <h2 class="header">Bio</h2>
+            <p class="bio">I am a freelance software developer based in New York City, with most of my practice being in augmented reality development.
+                I graduated from Wellesley College in Spring 2022 in the top 10% of my class.</p>
+            <button id="openCamerasButton">Learn More</button>
+        </div>
+  <script>
+    const maxPopups = 30;
+
+    function openRandomPopup(index) {
+      const popupWidth = Math.floor(Math.random() * 600) + 200; // Random width between 200 and 800 pixels
+      const popupHeight = Math.floor(Math.random() * 400) + 200; // Random height between 200 and 600 pixels
+      const zoomFactor = (Math.random() * 9 + 1).toFixed(2); // Random zoom factor between 1 and 10
+
+
+      const left = (window.screen.width - popupWidth) * Math.random();
+      const top = (window.screen.height - popupHeight) * Math.random();
+
+      const uniqueUrl = `camera.html?popup=${index}&zoom=${zoomFactor}`;
+
+      const popup = window.open(uniqueUrl, `Random Popup ${index}`, `width=${popupWidth}, height=${popupHeight}, left=${left}, top=${top}`);
+
+      if (popup) {
+        setTimeout(() => {
+          popup.resizeTo(popupWidth, popupHeight);
+          popup.moveTo(left, top);
+        }, 500); 
+        if (index === maxPopups - 1) {
+            setTimeout(openFinalPopup, 5000);        }
+      } else {
+        alert('Popup blocked. Please allow popups and try again.');
+      }
+    }
+
+    function openFinalPopup() {
+    // Open the final popup after a delay
+    const finalPopup = window.open('type.html', 'Final Popup', 'width=500, height=100, left=450, top=400');
+  }
+
+    document.getElementById('openCamerasButton').addEventListener('click', () => {
+      for (let i = 0; i < maxPopups; i++) {
+        openRandomPopup(i);
+      }
+    });
+  </script>
+</body>
+</html>
